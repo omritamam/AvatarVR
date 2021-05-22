@@ -12,7 +12,7 @@ public class fruitLifter : MonoBehaviour
         Debug.Log("fruits len is"+fruits.Length);
         foreach (GameObject fruit in fruits)
         {
-            rigitbodys[rigitbodys.Length - 1] = (Rigidbody) fruit.GetComponent("Rigidbody");
+            rigitbodys[rigitbodys.Length] = (Rigidbody) fruit.GetComponent("Rigidbody");
             Debug.Log("added!");
         }
     }
