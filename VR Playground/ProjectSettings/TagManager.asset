@@ -6,6 +6,10 @@ TagManager:
   tags:
   - apple
   - peanut
+  - banana
+  - pear
+  - lemon
+  - watermelon
   layers:
   - Default
   - TransparentFX
