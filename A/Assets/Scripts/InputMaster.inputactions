@@ -1,0 +1,45 @@
+{
+    "name": "InputMaster",
+    "maps": [
+        {
+            "name": "player",
+            "id": "435129f7-8d39-4cea-ab7f-d768f5e1e97a",
+            "actions": [
+                {
+                    "name": "record",
+                    "type": "PassThrough",
+                    "id": "61f3fc87-49f0-4eb7-8f01-fb831a92c089",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5e62c8fd-d4a5-4a84-91ec-6b5e59f78d41",
+                    "path": "<XRController>{RightHand}/triggerPressed",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "record",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "right hand ",
+            "bindingGroup": "right hand ",
+            "devices": [
+                {
+                    "devicePath": "<XRController>{RightHand}",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
