@@ -7,7 +7,7 @@ public class deer : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] GameObject door;
-    [SerializeField] Animator doorAnimator;
+    [SerializeField] private Animator doorAnimator;
     Animator deerAnimator;
     public bool isOn=false;
     void Start()
@@ -30,14 +30,13 @@ public class deer : MonoBehaviour
 
             }
         }
-    
+
         else
         {
-            //deerAnimator.Play("sadDeer");
+            //deerAnimator.Play("sadDeer")
         }
     }
 
-  
     // Update is called once per frame
     void Update()
     {
