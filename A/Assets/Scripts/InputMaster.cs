@@ -20,7 +20,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
             ""actions"": [
                 {
                     ""name"": ""record"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Value"",
                     ""id"": ""61f3fc87-49f0-4eb7-8f01-fb831a92c089"",
                     ""expectedControlType"": """",
                     ""processors"": """",
@@ -32,7 +32,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""5e62c8fd-d4a5-4a84-91ec-6b5e59f78d41"",
                     ""path"": ""<XRController>{RightHand}/triggerPressed"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""record"",
