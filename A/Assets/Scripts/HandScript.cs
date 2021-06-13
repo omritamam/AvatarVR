@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.InputSystem;
@@ -19,7 +20,9 @@ public class HandScript : MonoBehaviour
     [SerializeField] private GameObject textObeject;
     [SerializeField] private GameObject textObject1;
     [SerializeField] private GameObject textObeject2;
+    [SerializeField] private GameObject projectile;
     private Vector3[] up = new Vector3[10];
+    
     
     
     
@@ -27,6 +30,7 @@ public class HandScript : MonoBehaviour
 
      void Awake()
     {
+        textObeject.GetComponent<TextMesh>().text ="started";;
         for (int i = 0; i < 10; i++)
         {
             up[i] = new Vector3(0, i * 0.1f + 0.1f, 0);
@@ -44,6 +48,13 @@ public class HandScript : MonoBehaviour
 
      private IEnumerator recordCoroutine()
      {
+         Vector3 forward = transform.forward;
+         forward.y = 0;
+         forward = forward.normalized;
+         GameObject rock = Instantiate(projectile, transform.position + (0.1f * forward),
+             quaternion.identity, rightHandObject.transform);
+         
+         
          
          Queue<Vector3> movement = new Queue<Vector3>();
          Vector3 prime = new Vector3(0,0,0);
@@ -69,8 +80,10 @@ public class HandScript : MonoBehaviour
          textObject1.GetComponent<TextMesh>().text ="clearing";
          if (checkMove(movement))
          {
+             rock.transform.parent = null;
              
          }
+         Destroy(rock);
          movement.Clear();
      }
 
