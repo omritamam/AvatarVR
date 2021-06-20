@@ -16,13 +16,17 @@ using Vector3 = UnityEngine.Vector3;
 [SuppressMessage("ReSharper", "Unity.PerformanceCriticalCodeInvocation")]
 public class HandScript : MonoBehaviour
 {
+    public static int MOVEMENT_ARRAY_SIZE = 10;
+
     [SerializeField] private GameObject rightHandObject;
     [SerializeField] private GameObject textObeject;
     [SerializeField] private GameObject textObject1;
     [SerializeField] private GameObject textObeject2;
     [SerializeField] private GameObject projectile;
     [SerializeField] private GameObject head;
-    private Vector3[] up = new Vector3[10];
+    private GameObject rock;
+    private bool standbyProjectile;
+    private Vector3[] up = new Vector3[MOVEMENT_ARRAY_SIZE];
 
 
 
@@ -31,9 +35,9 @@ public class HandScript : MonoBehaviour
 
     void Awake()
     {
+        //initalize up vector
         textObeject.GetComponent<TextMesh>().text = "started";
-        ;
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < MOVEMENT_ARRAY_SIZE; i++)
         {
             up[i] = new Vector3(0, i * 0.1f + 0.1f, 0);
         }
@@ -46,7 +50,14 @@ public class HandScript : MonoBehaviour
 
     void record()
     {
+        if (standbyProjectile)
+        {
+            Destroy(rock);
+            standbyProjectile = false;
+            textObeject.GetComponent<TextMesh>().text = "another shot";
+        }
         StartCoroutine(recordCoroutine());
+        
     }
 
     private IEnumerator recordCoroutine()
@@ -54,8 +65,9 @@ public class HandScript : MonoBehaviour
         Vector3 forward = transform.forward;
         forward.y = 0;
         forward = forward.normalized;
-        GameObject rock = Instantiate(projectile, transform.position + (0.1f * forward),
+        rock = Instantiate(projectile, transform.position + (0.1f * forward),
             quaternion.identity, rightHandObject.transform);
+        rock.GetComponent<Projectile>().head = head;
         
         Queue<Vector3> movement = new Queue<Vector3>();
         Vector3 prime = new Vector3(0, 0, 0);
@@ -65,15 +77,13 @@ public class HandScript : MonoBehaviour
             {
                 prime = rightHandObject.transform.position;
             }
-
             Vector3 cur = rightHandObject.transform.position - prime;
 
             textObeject.GetComponent<TextMesh>().text = cur.ToString();
-            if (movement.Count == 10)
+            if (movement.Count == MOVEMENT_ARRAY_SIZE)
             {
                 movement.Dequeue();
-                textObeject.GetComponent<TextMesh>().text = "10";
-                ;
+                textObeject.GetComponent<TextMesh>().text = "MOVEMENT_ARRAY_SIZE";
             }
 
             movement.Enqueue(cur);
@@ -81,11 +91,15 @@ public class HandScript : MonoBehaviour
         }
 
         textObject1.GetComponent<TextMesh>().text = "clearing";
-        if (checkMove(movement))
+        standbyProjectile = checkMove(movement);
+        if (standbyProjectile)
         {
+            
             rock.transform.parent = head.transform;
             rock.transform.position = head.transform.position + (0.5f * forward);
-
+            rock.GetComponent<Projectile>().headPosInit = head.transform.position;
+            rock.GetComponent<Projectile>().state = Projectile.Move.GoodMove;
+            
         }
         else
         {
@@ -97,7 +111,7 @@ public class HandScript : MonoBehaviour
 
     private bool checkMove(Queue<Vector3> movement)
     {
-        if (movement.Count != 10)
+        if (movement.Count != MOVEMENT_ARRAY_SIZE)
         {
             textObeject2.GetComponent<TextMesh>().text = "movement too short in time " + movement.Count.ToString();
             return false;
@@ -126,17 +140,14 @@ public class HandScript : MonoBehaviour
         
 
     }
-
-
+    
     void OnEnable()
     {
         myControls.Enable();
     }
-
-     void OnDisable()
+    void OnDisable()
      {
          myControls.Disable();
-
      }
 
 
@@ -146,6 +157,8 @@ public class HandScript : MonoBehaviour
      //private InputDevice rightHand = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
     Queue<Vector3> rightHand_positions = new Queue<Vector3>();
     private int counter = 0;
+
+
     // Start is called before the first frame update
     void Start()
     {
