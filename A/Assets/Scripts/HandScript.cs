@@ -99,7 +99,6 @@ public class HandScript : MonoBehaviour
             rock.transform.position = head.transform.position + (0.5f * forward);
             rock.GetComponent<Projectile>().headPosInit = head.transform.position;
             rock.GetComponent<Projectile>().state = Projectile.Move.GoodMove;
-            
         }
         else
         {

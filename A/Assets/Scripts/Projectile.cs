@@ -13,7 +13,7 @@ public class Projectile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //insert
+        //insert animation
     }
 
     // Update is called once per frame
@@ -23,12 +23,18 @@ public class Projectile : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, headPosInit.y - 0.3f, transform.position.z);
         }
-        
-    }
 
+        checkCollision();
+    }
+    
     public void SwitchMove(Move move)
     {
         state = move;
+    }
+
+    void checkCollision()
+    {
+        
     }
 
     public void Destroy()
