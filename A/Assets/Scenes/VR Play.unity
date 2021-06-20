@@ -712,7 +712,7 @@ MonoBehaviour:
   textObeject: {fileID: 1276587882}
   textObject1: {fileID: 1770294019}
   textObeject2: {fileID: 1889641199}
-  projectile: {fileID: 0}
+  projectile: {fileID: 6079788154848486873, guid: cfa6a0cb35bd33646aa9f7883fbe9bbe, type: 3}
 --- !u!1 &1131830147
 GameObject:
   m_ObjectHideFlags: 0
